@@ -1,0 +1,24 @@
+body {
+    align-content:center;
+    align-items:space-around;
+    background-color:#202830;
+    display:grid;
+    justify-items:center;
+    height:100%;
+    width:100%;
+}
+
+canvas { image-rendering:pixelated; }
+
+@media (min-aspect-ratio: 16/9) {
+    
+}
+@media (max-aspect-ratio: 16/9) {
+    
+}
+@media all and (max-width: 600px) {
+
+}
+@media all and (max-width: 500px) {
+
+}
