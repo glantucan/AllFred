@@ -6,7 +6,12 @@ function Game() {
         background_color: "rgba(40, 48, 56, 0.25)",
         friction: 0.9, 
         gravity: 3,
-        player: Player(),
+        player: Player({
+            x: 300, 
+            y: 250, 
+            width: 16, 
+            height: 16
+        }),
         height: 73,
         width: 128,
         collideObject: function(object) {

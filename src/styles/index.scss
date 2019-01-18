@@ -2,13 +2,19 @@ body {
     align-content:center;
     align-items:space-around;
     background-color:#202830;
-    display:grid;
-    justify-items:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     height:100%;
     width:100%;
 }
-
-canvas { image-rendering:pixelated; }
+.canvas-holder {
+    width:100%;
+    text-align:center;
+}
+canvas { 
+    image-rendering:pixelated; 
+}
 
 @media (min-aspect-ratio: 16/9) {
     
