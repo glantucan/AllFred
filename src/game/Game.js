@@ -9,21 +9,30 @@ function Game() {
         player: Player({
             x: 300, 
             y: 250, 
-            width: 16, 
-            height: 16
+            w: 100, 
+            h: 70
         }),
-        height: 73,
-        width: 128,
-        collideObject: function(object) {
-            if (object.x < 0) { 
-                object.x = 0; object.velocity_x = 0; 
-            } else if (object.x + object.width > this.width) { 
-                object.x = this.width - object.width; object.vx = 0; 
+        h: 2000,
+        w: 1400,
+        viewPort: {
+            w:2000, 
+            h:1400
+        },
+        collideObject: function(gameObject) {
+            if (gameObject.x < 0) { 
+                gameObject.x = 0; 
+                gameObject.vx = 0; 
+            } else if (gameObject.x + gameObject.w > this.w) { 
+                gameObject.x = this.w - gameObject.w; 
+                gameObject.vx = 0; 
             }
-            if (object.y < 0) { 
-                object.y = 0; object.velocity_y = 0; 
-            } else if (object.y + object.height > this.height) { 
-                object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0
+            if (gameObject.y < 0) { 
+                gameObject.y = 0; 
+                gameObject.vy = 0; 
+            } else if (gameObject.y + gameObject.h > this.h) { 
+                gameObject.jumping = false; 
+                gameObject.y = this.h - gameObject.h; 
+                gameObject.vy = 0
             }
         }, 
         update: function() {

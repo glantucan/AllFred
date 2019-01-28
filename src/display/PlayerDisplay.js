@@ -1,6 +1,6 @@
 import regeneratorRuntime from "regenerator-runtime";
 /**
- * 
+ * @param {*} atlas 
  * @param {*} model An object that must have the following properties:
  *                  x: x position
  *                  y: y position 
@@ -16,6 +16,9 @@ function PlayerDisplay( atlas, model ) {
     var svg = new Image();
     svg.src = atlas.file;
     svg.onload = function (){
+        svg.width =  Math.floor(svg.naturalWidth * atlas.scale);
+        svg.height = Math.floor(svg.naturalHeight * atlas.scale);
+
         prescaled.canvas.width = Math.floor(svg.naturalWidth * atlas.scale);
         prescaled.canvas.height = Math.floor(svg.naturalHeight * atlas.scale);
     
@@ -47,8 +50,7 @@ function PlayerDisplay( atlas, model ) {
 
         while (frame) {
             if( frameStep % atlas.frameStep == 0) {
-                if (i == framePositions.length) i = 0;
-                frame = framePositions[i++];
+                frame = framePositions[ i++ % framePositions.length ];
             }
             frameStep++;
             yield frame;

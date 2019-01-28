@@ -24,13 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Everything set. Start the engine
     engine.start();
 
+    // attach displayObjects
     display.attachChild('bg', Background({color:'#77eeff'}));
 
-
-    /* var svg = document.createElement('img');
-    svg.src = require('./assets/bird4sprites.svg');
-    console.log(svg);
-    document.body.appendChild(svg); */
     display.attachChild('player', 
         PlayerDisplay(
             {
@@ -41,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 frameHeight: 700,
                 frames:[[0,0], [0,1], [0,3], [0,2], [0,1]],
             }, game.world.player.model));
+
 
     // Main render function
     function render() {

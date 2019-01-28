@@ -1,10 +1,10 @@
 
 function Player( 
-        { x, y, width, height } = {
+        { x, y, w, h } = {
             x: 100, 
             y: 50, 
-            width: 16, 
-            height: 16
+            w: 16, 
+            h: 16
         },
         { vx, vy } = {
             vx: 0,
@@ -12,12 +12,7 @@ function Player(
         }
     ) 
 {
-    var color = '#ff0000';
-    var height = 16;
-    var jumping = true;
-    var vx = 0;
-    var vy = 0;
-    var width = 16;
+    var jumping = false;
 
     function jump() {
         jumping = true;
@@ -47,15 +42,14 @@ function Player(
         get vy() { return vy; },
         set vx(val) { vx = val; },
         set vy(val) { vy = val; },
-        get width() { return width; },
-        get height() { return height; },
+        get width() { return w; },
+        get height() { return h; },
         get model() {
             return { 
                 x: this.x, 
                 y: this.y, 
-                w: this.width,
-                h: this.height,
-                color: color,
+                w: this.w,
+                h: this.h,
             };
         }
     }
