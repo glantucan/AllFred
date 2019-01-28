@@ -34,8 +34,6 @@ function PlayerDisplay( atlas, model ) {
                 framePositions[i] = { 
                     x: frame[1] * fw,
                     y: frame[0] * fh,
-                   /*  w: (frame[1] + 1) * fw,   
-                    h: (frame[0] + 1) * fh, */
                 };
             }
         } else {
@@ -61,7 +59,7 @@ function PlayerDisplay( atlas, model ) {
     
     return {
         render(buffer) {  
-            
+            //console.log('rendering:',model.x);
             var frame = getFrame.next().value;
             // Draw directly to the canvas instead of using the buffer
             buffer.drawImage(prescaled.canvas, frame.x, frame.y, fw, fh, model.x, model.y,    

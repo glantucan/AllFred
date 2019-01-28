@@ -1,57 +1,31 @@
-import Player from './Player';
-
+import world from './World';
+/* TODO:
+    - Create a gameobjets list
+    - Delegate the updates to each gameobject
+    - The world will be a very spetial gameobject on that list
+*/
 function Game() {
-
-    var world = {
-        background_color: "rgba(40, 48, 56, 0.25)",
-        friction: 0.9, 
-        gravity: 3,
-        player: Player({
-            x: 300, 
-            y: 250, 
-            w: 100, 
-            h: 70
-        }),
-        h: 2000,
-        w: 1400,
-        viewPort: {
-            w:2000, 
-            h:1400
-        },
-        collideObject: function(gameObject) {
-            if (gameObject.x < 0) { 
-                gameObject.x = 0; 
-                gameObject.vx = 0; 
-            } else if (gameObject.x + gameObject.w > this.w) { 
-                gameObject.x = this.w - gameObject.w; 
-                gameObject.vx = 0; 
-            }
-            if (gameObject.y < 0) { 
-                gameObject.y = 0; 
-                gameObject.vy = 0; 
-            } else if (gameObject.y + gameObject.h > this.h) { 
-                gameObject.jumping = false; 
-                gameObject.y = this.h - gameObject.h; 
-                gameObject.vy = 0
-            }
-        }, 
-        update: function() {
-            this.player.velocity_y += this.gravity;
-            this.player.update();
-
-            this.player.velocity_x *= this.friction;
-            this.player.velocity_y *= this.friction;
-
-            this.collideObject(this.player);
-        }
-    }
-
-    function update (){
-        world.update();
-    }
+    var gameObjects = new Map();
 
     return {
-        update,
+        update () {
+
+            for (var [goId, go] of gameObjects) {
+                go.update();
+            }
+        },
+        addObject(goId, go) {
+            gameObjects.set(goId, go);
+            return go;
+        },
+        getObjectModel(goId) {
+            return gameObjects.get(goId).model;
+        },
+        removeObject(goId) {
+            var go = gameObjects.get(goId);
+            gameObjects.delete(goId);
+            return go;
+        },
         get world() {
             return world;
         }

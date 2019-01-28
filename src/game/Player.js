@@ -6,12 +6,10 @@ function Player(
             w: 16, 
             h: 16
         },
-        { vx, vy } = {
-            vx: 0,
-            vy: 0
-        }
+        v = 3
     ) 
 {
+    var vx = 0, vy = 0; 
     var jumping = false;
 
     function jump() {
@@ -20,21 +18,42 @@ function Player(
     }
 
     function moveLeft() {
-        vx -= 0.5;
+        vx = -v;
     }
 
     function moveRight() {
-        vy += 0.5;
+        vx = v;
+    }
+
+    function stopX() {
+        vx = 0;
+    }
+
+    function moveUp() {
+        vy = -v;
+    }
+    
+    function moveDown() {
+        vy = v;
+    }
+
+    function stopY() {
+        vy = 0;
     }
 
     function update() {
         x += vx;
         y += vy;
+        //console.log(x);
+    }
+
+    function screenResized(scale) {
+
     }
 
     return {
-        update, moveLeft, moveRight, jump,
-        get x() { return x; },
+        update, moveLeft, moveRight, moveUp, moveDown, jump, stopX, stopY,
+        get x() { return x;   console.log(x);},
         get y() { return y; },
         set x(val) { x = val; },
         set y(val) { y = val; },
@@ -46,10 +65,10 @@ function Player(
         get height() { return h; },
         get model() {
             return { 
-                x: this.x, 
-                y: this.y, 
-                w: this.w,
-                h: this.h,
+                get x() { return x;}, 
+                get y() { return y; }, 
+                get w() { return w; },
+                get h() { return h; },
             };
         }
     }
