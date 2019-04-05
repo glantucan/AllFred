@@ -1,29 +1,35 @@
-import Display from "./display/Display";
-import PlayerDisplay from "./display/PlayerDisplay";
-import Background from "./display/Background";
-import Controller from "./controller/Controller";
-import Engine from "./Engine";
 import Game from "./game/Game";
 import world from './game/World';
 import Player from './game/Player';
+import Display from "./display/Display";
+import PlayerDisplay from "./display/PlayerDisplay";
+import Background from "./display/Background";
+import KeyboardController from "./controller/KeyboardController";
+import Engine from "./Engine";
+import resizeController from "./controller/ResizeController"
 
 
 
 require('normalize.css/normalize.css');
 require('./styles/index.scss');
 
-document.addEventListener("DOMContentLoaded", () => {
+// DOMContentLoaded doesn't wait till css is loaded, whic means that canvas container will probably not the definitive size --> Use load instead. 
+window.addEventListener("load", () => {
+    var canvas = document.getElementById('AllFredGameCanvas');
 
-    var controller = Controller.KBController();
-    var display = Display( document.getElementById('AllFredGameCanvas') );
+    var keyboard = KeyboardController.KBController();
+    var display = Display(canvas);
     var game = Game();
     var engine = Engine(1000/30, update, render);
 
-    // Adapt to the window size right away
-    display.onResize();
+
+     // Adapt to the window size right away
+     resizeController.resize(canvas.parentNode);
+   
+    
 
     // Adapt to the window size on window resize
-    window.addEventListener("resize", display.onResize);
+    window.addEventListener("resize", resizeController.resize);
     
     // Add gameObjects
     game.addObject('World', world);
@@ -61,18 +67,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Main update function
     function update() {
         
-        if (controller.isPressed(Controller.LEFT)) {
+        if (keyboard.isPressed(KeyboardController.LEFT)) {
             player.moveLeft();
-        } else if (controller.isPressed(Controller.RIGHT)) {
+        } else if (keyboard.isPressed(KeyboardController.RIGHT)) {
             player.moveRight();
         } else {
             player.stopX();
         }
-        if (controller.isPressed(Controller.JUMP)) {
-            console.log('JUMP:', controller.isPressed(Controller.JUMP));
+        if (keyboard.isPressed(KeyboardController.JUMP)) {
+            console.log('JUMP:', keyboard.isPressed(KeyboardController.JUMP));
             player.moveUp();
-        } else if (controller.isPressed(Controller.DOWN)) {
-            console.log('DOWN:', controller.isPressed(Controller.DOWN));
+        } else if (keyboard.isPressed(KeyboardController.DOWN)) {
+            console.log('DOWN:', keyboard.isPressed(KeyboardController.DOWN));
             player.moveDown();
         } else {
             player.stopY();

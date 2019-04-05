@@ -9,12 +9,8 @@ var world = {
     //     w: 100, 
     //     h: 70
     // }),
-    h: 2000,
-    w: 1400,
-    viewPort: {
-        w:2000, 
-        h:1400
-    },
+    w: 2000,
+    h: 1400,
     collideObject: function(gameObject) {
         if (gameObject.x < 0) { 
             gameObject.x = 0; 

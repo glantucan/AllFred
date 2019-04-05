@@ -4,12 +4,21 @@
     - Pass the canvas instead of the buffer to the display objects
 */
 
-function Display(canvas, buffer_w = 1920, buffer_h = 1080) {
-    var buffer = document.createElement('canvas').getContext("2d");
-    buffer.canvas.width = buffer_w;
-    buffer.canvas.height = buffer_h;
+function Display(canvas, aspectRatio) {
+    // allways maximize the canvas to te container size
+    canvas.style.width = aspectRatio*100+'%';
+    canvas.style.height= '100%';
+    // ...then set the internal size to match
+    canvas.width  = canvas.parentNode.offsetWidth;
+    canvas.height = canvas.parentNode.offsetHeight;
 
-    var buffer_hw_ratio = buffer_h/buffer_w;
+    var buffer = document.createElement('canvas').getContext("2d");
+
+    var  w = 1920, h = 1080;
+    buffer.canvas.width = w;
+    buffer.canvas.height = h;
+
+    var buffer_hw_ratio = h/w;
 
     var context = canvas.getContext('2d');
     var displayStack = new Map();
@@ -27,20 +36,20 @@ function Display(canvas, buffer_w = 1920, buffer_h = 1080) {
     }
 
     function onResize (ev) {
-        var height = document.documentElement.clientHeight,//canvas.clientHeight,
-            width  = document.documentElement.clientWidth;//canvas.clientWidth;
+    //     var height = document.documentElement.clientHeight,//canvas.clientHeight,
+    //         width  = document.documentElement.clientWidth;//canvas.clientWidth;
             
-        var hw = height/width;
+    //     var hw = height/width;
         
-        if (hw > buffer_hw_ratio) {
-            canvas.width = width;
-            canvas.height = width * buffer_hw_ratio;
-        } else {
-            canvas.height = height;
-            canvas.width =  height / buffer_hw_ratio;
-        }
+    //     if (hw > buffer_hw_ratio) {
+    //         canvas.width = width;
+    //         canvas.height = width * buffer_hw_ratio;
+    //     } else {
+    //         canvas.height = height;
+    //         canvas.width =  height / buffer_hw_ratio;
+    //     }
         
-        render();
+    //     render();
     }
 
     function render() {

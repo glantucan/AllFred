@@ -4,10 +4,34 @@ import world from './World';
     - Delegate the updates to each gameobject
     - The world will be a very spetial gameobject on that list
 */
-function Game() {
-    var gameObjects = new Map();
 
+/**
+ * 
+ * @param {*} {viewport} Configuration object containing a viewport object and ... 
+ */
+function Game({viewport} = {
+    viewport: {
+        w: 2000, 
+        h: 1400
+    }}) 
+{
+
+    var gameObjects = new Map();
+    var scaledW = viewport.w;
+    var scaledH = viewport.h;
+    
     return {
+        get w() { return scaledW; },
+        get h() { return scaledH; },
+        onResize(scale) {
+            scaledW = scale * viewport.w;
+            scaledH = scale * viewport.h;
+            gameObjects.forEach(function(go){
+                if(go.onResize) {
+                    go.onResize();
+                }
+            });
+        },
         update () {
 
             for (var [goId, go] of gameObjects) {
@@ -25,9 +49,6 @@ function Game() {
             var go = gameObjects.get(goId);
             gameObjects.delete(goId);
             return go;
-        },
-        get world() {
-            return world;
         }
     }
 }
